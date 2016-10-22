@@ -19,7 +19,7 @@ import { LoginComponent } from './authentication/login.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule, 
+    HttpModule,
     routing
   ],
   providers: [],

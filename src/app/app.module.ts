@@ -7,12 +7,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home.component';
+import { LoginComponent } from './authentication/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

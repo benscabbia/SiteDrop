@@ -21,7 +21,7 @@ import { SignupComponent } from './authentication/signup.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     HttpModule,
     routing
   ],

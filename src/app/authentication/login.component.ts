@@ -16,29 +16,23 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): any {
     this.loginForm = this.formBuilder.group({
-       'email': ['', [
-          Validators.required,
-          Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-        ]],
-      // 'email': ['', Validators.compose([
-      //   Validators.required,
-      //   //this.isEmailValid
-      //   Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;')
-      //])],
+      'email': ['', Validators.compose([
+        Validators.required,
+        Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+      ])],
       'password': ['', Validators.compose([
         Validators.required,
-        Validators.minLength(6)
       ])]
     });
   }
 
   onLogin() {
-    //todo
+    // todo
     console.log(this.loginForm);
   }
 
-  //example-custom-validator
-  isEmailValid(control: FormControl): { [s: string]: boolean } {    
+  // example-custom-validator
+  isEmailValid(control: FormControl): { [s: string]: boolean } {
     if (!control.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
       return { noEmail: true };
     }

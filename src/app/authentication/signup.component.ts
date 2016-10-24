@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  signupForm: FormGroup;
 
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder) { }
+
+  ngOnInit(): any {
+    this.signupForm = this.formBuilder.group({
+      'name': ['', Validators.required],
+      'email': ['', Validators.compose([
+        Validators.required,
+        Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+      ])],
+      'password': ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
+      ])],
+      'confirmPassword': ['', Validators.compose([
+        Validators.required,
+        this.isEqualPassword.bind(this)
+      ])]
+    });
+  }
+
+  onSignup() {
+    console.log(this.signupForm);
+  }
+
+  isEqualPassword(control: FormControl): {[s: string]: boolean} {
+    if (!this.signupForm) {
+      return { passwordsNotMatch: true };
+    }
+    if (control.value !== this.signupForm.controls['password'].value) {
+      return { passwordsNotMatch: true };
+    }
   }
 
 }

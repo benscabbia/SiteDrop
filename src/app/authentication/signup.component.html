@@ -1,3 +1,43 @@
-<p>
-  signup works!
-</p>
+<div class='row'>
+	<h1>Registration</h1>
+	<form [formGroup]="signupForm" class="form-signin" (ngSubmit)="onSignup()">
+
+		<div class="form-group">
+			<label for="name">Your Name</label>
+			<input type="text" class="form-control" id="name" placeholder="Enter your Name" formControlName="name" #name>
+			<div *ngIf="!signupForm.controls['name'].valid && signupForm.controls['name'].dirty && signupForm.controls['name'].touched"
+				style='color:red;'>
+				Please enter your name
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="email">Email address</label>
+			<input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email" #email>
+			<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+			<div *ngIf="!signupForm.controls['email'].valid && signupForm.controls['email'].dirty && signupForm.controls['email'].touched"
+				style='color:red;'>
+				Invalid email address
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" #password>
+		</div>
+		<div *ngIf="!signupForm.controls['password'].valid && signupForm.controls['password'].dirty && signupForm.controls['password'].touched"
+			style='color:red;'>
+			Password Must Be more than 6 characters long
+		</div>
+		<div class="form-group">
+			<label for="confirmPassword">Confirm Password</label>
+			<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword" #confirmPassword>
+		</div>
+		<div *ngIf="!signupForm.controls['confirmPassword'].valid && signupForm.controls['confirmPassword'].dirty && signupForm.controls['confirmPassword'].touched"
+			style='color:red;'>
+			Password does not match!
+		</div>
+
+		<button class="btn btn-lg btn-success btn-block" type="submit" [disabled]="!signupForm.valid">Create Account</button>
+	</form>
+</div>

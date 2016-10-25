@@ -5,11 +5,17 @@
 			<a class="nav-link" [routerLink]="['/']">Home</a>
 		</li>
 
-		<li class="nav-item float-xs-right" routerLinkActive="active">
+		<li *ngIf="!isAuth()" class="nav-item float-xs-right" routerLinkActive="active">
 			<a class="nav-link" [routerLink]="['/signup']">Sign Up</a>
 		</li>		
-		<li class="nav-item float-xs-right" routerLinkActive="active">
+		<li *ngIf="!isAuth()" class="nav-item float-xs-right" routerLinkActive="active">
 			<a class="nav-link" [routerLink]="['/login']">Login</a>
+		</li>
+		<li *ngIf="isAuth()" class="nav-item float-xs-right" style="cursor:pointer;" routerLinkActive="active">
+			<a (click)="onLogout()" class="nav-link">Logout</a>
+		</li>
+		<li *ngIf="isAuth()" class="nav-item float-xs-right" style="cursor:pointer;" routerLinkActive="active">
+			<a class="nav-link" [routerLink]="['/profile']">My Profile</a>
 		</li>
 	</ul>
 </nav>

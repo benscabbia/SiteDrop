@@ -43,6 +43,7 @@ export class AuthService {
                 // An error happened.
                 // todo
             });
+            this.router.navigate(['/login']);
     }
 
     isAuthenticated(): Observable<boolean> {

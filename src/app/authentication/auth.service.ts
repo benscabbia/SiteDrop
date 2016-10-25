@@ -13,8 +13,8 @@ export class AuthService {
         firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
             .catch(function (error) {
                 // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
+                let errorCode = error.code;
+                let errorMessage = error.message;
                 // todo
                 console.log(errorCode);
                 console.log(errorMessage);
@@ -25,8 +25,8 @@ export class AuthService {
         firebase.auth().signInWithEmailAndPassword(user.email, user.password)
             .catch(function (error) {
                 // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
+                let errorCode = error.code;
+                let errorMessage = error.message;
                 // todo
                 console.log(errorCode);
                 console.log(errorMessage);
@@ -52,9 +52,9 @@ export class AuthService {
 
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                subject.next(true); 
+                subject.next(true);
             } else {
-                subject.next(false);                 
+                subject.next(false);
             }
         });
 

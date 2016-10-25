@@ -2,5 +2,5 @@ export interface User {
     name: string;
     email: string;
     password: string;
-    confirmPassord?:string;
+    confirmPassord?: string;
 }

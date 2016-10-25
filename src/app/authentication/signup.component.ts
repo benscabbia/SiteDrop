@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,7 +11,7 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): any {
     this.signupForm = this.formBuilder.group({
@@ -32,6 +33,7 @@ export class SignupComponent implements OnInit {
 
   onSignup() {
     console.log(this.signupForm);
+    this.authService.signupUser(this.signupForm.value);
   }
 
   isEqualPassword(control: FormControl): {[s: string]: boolean} {

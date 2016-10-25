@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   // error: boolean = false;
   // errorMessage: String = '';
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): any {
     this.loginForm = this.formBuilder.group({
@@ -27,8 +28,8 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    // todo
     console.log(this.loginForm);
+    this.authService.signinUser(this.loginForm.value);
   }
 
   // example-custom-validator

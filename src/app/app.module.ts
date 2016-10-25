@@ -1,3 +1,5 @@
+import { AuthGuard } from './authentication/auth.guard';
+import { AuthService } from './authentication/auth.service';
 import { routing } from './app.routing';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -27,7 +29,7 @@ import { ProfileComponent } from './authentication/profile/profile.component';
     HttpModule,
     routing
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

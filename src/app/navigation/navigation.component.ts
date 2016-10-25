@@ -13,13 +13,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private subscription: Subscription;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
     this.subscription = this.authService.isAuthenticated().subscribe(
       (authStatus) => this.isAuthenticated = authStatus
     );
-  }
-
-  ngOnInit() {
   }
 
   isAuth() {

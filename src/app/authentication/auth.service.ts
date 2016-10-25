@@ -34,16 +34,8 @@ export class AuthService {
     }
 
     logout() {
-        // todo
-        firebase.auth().signOut()
-            .then(function () {
-                // Sign-out successful.
-                // todo
-            }, function (error) {
-                // An error happened.
-                // todo
-            });
-            this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
+        firebase.auth().signOut();
     }
 
     isAuthenticated(): Observable<boolean> {

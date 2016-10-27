@@ -13,6 +13,7 @@ import { LoginComponent } from './authentication/login.component';
 import { SignupComponent } from './authentication/signup.component';
 import { ProfileComponent } from './authentication/profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CreateSiteComponent } from './dashboard/create-site/create-site.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     SignupComponent,
     ProfileComponent,
-    DashboardComponent
+    DashboardComponent,
+    CreateSiteComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,21 @@ export class AuthService {
 
     signupUser(user: User) {
         firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+            .then(success => {
+                // set uid
+                user['$key'] = success.uid;
+                // create profile
+                let profileData = Object.assign({}, user);
+                let userKey = profileData['$key'];
+
+                // post  profileData under: '/profiles/uid/profileData
+
+                console.log(profileData);
+                console.log(userKey);
+
+
+                this.router.navigate(['/profile']);
+            })
             .catch(function (error) {
                 // Handle Errors here.
                 let errorCode = error.code;

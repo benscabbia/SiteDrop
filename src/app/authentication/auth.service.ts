@@ -9,9 +9,10 @@ declare var firebase: any;
 export class AuthService {
     constructor(private router: Router) { }
 
-    signupUser(user: User) {
+    public signupUser(user: User) {
         firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-            .then(success => {
+            .then(
+                success => {
                 // set uid
                 user['$key'] = success.uid;
                 // create profile
@@ -25,7 +26,8 @@ export class AuthService {
 
 
                 this.router.navigate(['/profile']);
-            })
+                }
+            )
             .catch(function (error) {
                 // Handle Errors here.
                 let errorCode = error.code;
@@ -36,8 +38,13 @@ export class AuthService {
             });
     }
 
-    signinUser(user: User) {
+    public signinUser(user: User) {
         firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+            .then( 
+                success => {
+                    this.router.navigate(['/dashboard'])
+                }
+            )
             .catch(function (error) {
                 // Handle Errors here.
                 let errorCode = error.code;
@@ -48,12 +55,12 @@ export class AuthService {
             });
     }
 
-    logout() {
+    public logout() {
         this.router.navigate(['/login']);
         firebase.auth().signOut();
     }
 
-    isAuthenticated(): Observable<boolean> {
+    public isAuthenticated(): Observable<boolean> {
 
         const subject = new Subject<boolean>();
 

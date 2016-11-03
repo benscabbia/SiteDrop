@@ -1,3 +1,6 @@
+import { AngularFireModule } from 'angularfire2';
+
+import { ConfigService } from './Shared/config.service';
 import { AuthGuard } from './authentication/auth.guard';
 import { AuthService } from './authentication/auth.service';
 import { routing } from './app.routing';
@@ -17,7 +20,7 @@ import { CreateSiteComponent } from './dashboard/create-site/create-site.compone
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,    
     NavigationComponent,
     HomeComponent,
     LoginComponent,
@@ -31,7 +34,8 @@ import { CreateSiteComponent } from './dashboard/create-site/create-site.compone
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    routing
+    routing,
+    AngularFireModule.initializeApp(ConfigService.FIREBASE_CONFIG)
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

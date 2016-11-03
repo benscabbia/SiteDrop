@@ -4,15 +4,30 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs/Rx';
 import { Headers, Http, Response } from '@angular/http';
+import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
 
-declare var firebase: any;
+//declare var firebase: any;
 
 @Injectable()
 export class AuthService {
-    constructor(private router: Router, private http: Http) { }
+
+
+    private user: any = null;
+
+    constructor(private router: Router, private http: Http, private af: AngularFire) {
+
+        let self = this;
+        this.af.auth.subscribe(user => {
+            if (user)
+                self.user = user;
+            else
+                self.user = null;
+        });
+    }
 
     public signupUser(user: User): void {
-        firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+        this.af.auth.createUser({ email: user.email, password: user.password })
+            //firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
             .then(
             success => {
 
@@ -32,7 +47,7 @@ export class AuthService {
             )
             .catch(function (error) {
                 // Handle Errors here.
-                let errorCode = error.code;
+                let errorCode = error;
                 let errorMessage = error.message;
                 // todo
                 console.log(errorCode);
@@ -44,30 +59,42 @@ export class AuthService {
         // create profile
         let body = JSON.stringify(userProfile);
 
-        let headers = new Headers({'Content-Type':'application/JSON'});
+        let headers = new Headers({ 'Content-Type': 'application/JSON' });
         //let profileData = Object.assign({}, userProfile);
         let userKey = userProfile['key'];
         //let body = {"hello":"world"};
         console.log(body);
-        //firebase.database().ref('profiles/' + userKey).set(body);
+        //firebase.database().ref('profiles/' + userKey).set(body);        
         return this.http.post('https://sitedrop-c39b3.firebaseio.com/profiles/' + userKey + '.json', body, headers)
-        .map((data: Response) => data.json());        
+            .map((data: Response) => data.json());
         // console.log(profileData);
         // console.log(userKey);
     }
 
     public signinUser(user: User) {
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+        //firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+        this.af.auth.login({
+            email: user.email,
+            password: user.password
+        },
+        {
+            provider: AuthProviders.Password,
+            method: AuthMethods.Password
+        }
+        
+        )
             .then(
             success => {
+                console.log("Authetnicated maybe");
                 this.router.navigate(['/dashboard'])
             }
             )
             .catch(function (error) {
                 // Handle Errors here.
-                let errorCode = error.code;
+                let errorCode = error;
                 let errorMessage = error.message;
                 // todo
+                console.log("ERROR SIGNING USER IN");
                 console.log(errorCode);
                 console.log(errorMessage);
             });
@@ -75,21 +102,35 @@ export class AuthService {
 
     public logout() {
         this.router.navigate(['/login']);
-        firebase.auth().signOut();
+        this.af.auth.logout();
+        //firebase.auth().signOut();
     }
+
+
+
+
 
     public isAuthenticated(): Observable<boolean> {
 
         const subject = new Subject<boolean>();
 
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                subject.next(true);
-            } else {
-                subject.next(false);
-            }
-        });
+
+        // firebase.auth().onAuthStateChanged(function (user) {
+        //     if (user) {
+        //         subject.next(true);
+        //     } else {
+        //         subject.next(false);
+        //     }
+        // });
+
+        //todo
+        subject.next(false);
 
         return subject.asObservable();
+    }
+
+
+    public get isLoggedIn() {
+        return (this.user) ? true : false;
     }
 }

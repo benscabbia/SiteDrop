@@ -25,6 +25,7 @@ export class AuthService {
         });
     }
 
+
     public signupUser(user: User): void {
         this.af.auth.createUser({ email: user.email, password: user.password })
             //firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
@@ -114,19 +115,30 @@ export class AuthService {
 
         const subject = new Subject<boolean>();
 
+    //     subject.next(false);
 
-        // firebase.auth().onAuthStateChanged(function (user) {
-        //     if (user) {
-        //         subject.next(true);
-        //     } else {
-        //         subject.next(false);
+    //     return subject.asObservable();
+
+        //v2
+        this.af.auth.subscribe(
+            (auth) => {
+                if(auth){                    
+                    subject.next(true);
+                }else{
+                    subject.next(false);
+                }
+            }
+            );
+
+            return subject.asObservable();
+
+        //v3
+        // this.af.auth.subscribe(
+        //     auth => {
+        //         console.log(auth)
+        //         return auth == null;
         //     }
-        // });
-
-        //todo
-        subject.next(false);
-
-        return subject.asObservable();
+        // );
     }
 
 

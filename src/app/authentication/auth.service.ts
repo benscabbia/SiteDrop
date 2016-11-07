@@ -2,22 +2,23 @@ import { User } from './user.interface';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs/Rx';
-import { Headers, Http, Response } from '@angular/http';
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import { Http } from '@angular/http';
+import { AngularFire, FirebaseObjectObservable, AuthProviders, AuthMethods } from 'angularfire2';
 
 @Injectable()
 export class AuthService {
 
     private user: any = null;
+    item: FirebaseObjectObservable<any>;
 
     constructor(private router: Router, private http: Http, private af: AngularFire) {
+        this.item = af.database.object('/profile');
 
         let self = this;
         this.af.auth.subscribe(user => {
-            if (user){
+            if (user) {
                 self.user = user;
-            }   
-            else {
+            } else {
                 self.user = null;
             }
         });
@@ -25,21 +26,12 @@ export class AuthService {
 
     public signupUser(user: User): void {
         this.af.auth.createUser({ email: user.email, password: user.password })
-            //firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
             .then(
             success => {
-
-                //set uid
+                // set uid
                 user['key'] = success.uid;
-                // let profileData = Object.assign({}, user);
-                // let userKey = profileData['$key'];
 
-                this.storeProfile(user).subscribe(
-                    profile => console.log('Profile Created: ' + profile),
-                    error => console.log(error)
-                );
-                // post  profileData under: '/profiles/uid/profileData
-
+                this.storeProfile(user);
                 this.router.navigate(['/profile']);
             }
             )
@@ -53,20 +45,22 @@ export class AuthService {
             });
     }
 
-    private storeProfile(userProfile: User): Observable<Response> {
-        // create profile
-        let body = JSON.stringify(userProfile);
+    private storeProfile(userProfile: User): boolean {
 
-        let headers = new Headers({ 'Content-Type': 'application/JSON' });
-        //let profileData = Object.assign({}, userProfile);
+        // Create profile        
+        let body = Object.assign({}, userProfile);
         let userKey = userProfile['key'];
-        //let body = {"hello":"world"};
+        delete body['key'];
         console.log(body);
-        //firebase.database().ref('profiles/' + userKey).set(body);        
-        return this.http.post('https://sitedrop-c39b3.firebaseio.com/profiles/' + userKey + '.json', body, headers)
-            .map((data: Response) => data.json());
-        // console.log(profileData);
-        // console.log(userKey);
+
+        const promise = this.af.database.object('/profiles/' + userKey).set(body);
+        promise
+            .then((success) => {
+                console.log('PRofile created successfully');
+                return true;
+            })
+            .catch((error) => console.log('error in creating profile'));
+        return false;
     }
 
     public signinUser(user: User) {

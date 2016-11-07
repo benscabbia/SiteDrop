@@ -13,31 +13,23 @@ export class NavigationComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private subscription: Subscription;
 
-  constructor(private authService: AuthService) {
-    // debugger;
-    // this.isAuthenticated = this.authService.isLoggedIn;    
-    // console.log("Through constrcutor of nav comp, the status of is auth: " + this.isAuthenticated);
-
-  }
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.subscription = this.authService.isAuthenticated().subscribe(
       (authStatus) => this.isAuthenticated = authStatus
     );
-
-    console.log("THE AUTH IN NAV: " + this.subscription);
   }
 
   isAuth(): boolean {
     return this.isAuthenticated;
   }
 
-  onLogout() {
+  onLogout(): void {
     this.authService.logout();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }

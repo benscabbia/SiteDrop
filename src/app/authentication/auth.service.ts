@@ -1,16 +1,12 @@
-import { Validators } from '@angular/forms';
 import { User } from './user.interface';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs/Rx';
 import { Headers, Http, Response } from '@angular/http';
-import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
-
-//declare var firebase: any;
+import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
 @Injectable()
 export class AuthService {
-
 
     private user: any = null;
 
@@ -18,13 +14,14 @@ export class AuthService {
 
         let self = this;
         this.af.auth.subscribe(user => {
-            if (user)
+            if (user){
                 self.user = user;
-            else
+            }   
+            else {
                 self.user = null;
+            }
         });
     }
-
 
     public signupUser(user: User): void {
         this.af.auth.createUser({ email: user.email, password: user.password })
@@ -38,7 +35,7 @@ export class AuthService {
                 // let userKey = profileData['$key'];
 
                 this.storeProfile(user).subscribe(
-                    profile => console.log("Profile Created: " + profile),
+                    profile => console.log('Profile Created: ' + profile),
                     error => console.log(error)
                 );
                 // post  profileData under: '/profiles/uid/profileData
@@ -73,21 +70,20 @@ export class AuthService {
     }
 
     public signinUser(user: User) {
-        //firebase.auth().signInWithEmailAndPassword(user.email, user.password)
         this.af.auth.login({
             email: user.email,
             password: user.password
         },
-        {
-            provider: AuthProviders.Password,
-            method: AuthMethods.Password
-        }
-        
+            {
+                provider: AuthProviders.Password,
+                method: AuthMethods.Password
+            }
+
         )
             .then(
             success => {
-                console.log("Authetnicated maybe");
-                this.router.navigate(['/dashboard'])
+                console.log('Authetnicated maybe');
+                this.router.navigate(['/dashboard']);
             }
             )
             .catch(function (error) {
@@ -95,7 +91,7 @@ export class AuthService {
                 let errorCode = error;
                 let errorMessage = error.message;
                 // todo
-                console.log("ERROR SIGNING USER IN");
+                console.log('ERROR SIGNING USER IN');
                 console.log(errorCode);
                 console.log(errorMessage);
             });
@@ -104,43 +100,23 @@ export class AuthService {
     public logout() {
         this.router.navigate(['/login']);
         this.af.auth.logout();
-        //firebase.auth().signOut();
     }
-
-
-
-
 
     public isAuthenticated(): Observable<boolean> {
 
         const subject = new Subject<boolean>();
 
-    //     subject.next(false);
-
-    //     return subject.asObservable();
-
-        //v2
         this.af.auth.subscribe(
             (auth) => {
-                if(auth){                    
+                if (auth) {
                     subject.next(true);
-                }else{
+                } else {
                     subject.next(false);
                 }
             }
-            );
-
-            return subject.asObservable();
-
-        //v3
-        // this.af.auth.subscribe(
-        //     auth => {
-        //         console.log(auth)
-        //         return auth == null;
-        //     }
-        // );
+        );
+        return subject.asObservable();
     }
-
 
     public get isLoggedIn() {
         return (this.user) ? true : false;

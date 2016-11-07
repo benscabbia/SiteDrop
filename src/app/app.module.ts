@@ -20,7 +20,7 @@ import { CreateSiteComponent } from './dashboard/create-site/create-site.compone
 
 @NgModule({
   declarations: [
-    AppComponent,    
+    AppComponent,
     NavigationComponent,
     HomeComponent,
     LoginComponent,

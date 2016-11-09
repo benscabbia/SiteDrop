@@ -115,4 +115,13 @@ export class AuthService {
     public get isLoggedIn() {
         return (this.user) ? true : false;
     }
+
+
+
+    public getProfile(): Observable<User>{
+        if(this.user != null){
+            return this.af.database.object('/profiles/' + this.user.uid);
+        }
+        throw "User Profile could not be loaded";
+    }
 }

@@ -5,10 +5,10 @@
 		<div class="form-group">
 
 			<label for="id">Your Unique ID</label>
-			<input type="text" class="form-control" id="id" formControlName="id" readonly  [value]='profile?.key' #id>
+			<input type="text" class="form-control" id="id" formControlName="id" readonly [value]='user?.$key'>
 
 			<label for="name">Your Name</label>
-			<input type="text" class="form-control" id="name" formControlName="name" #name>
+			<input type="text" class="form-control" id="name" formControlName="name" [value]='user?.name'>
 			<div *ngIf="!profileForm.controls['name'].valid && profileForm.controls['name'].dirty && profileForm.controls['name'].touched"
 				style='color:red;'>
 				Your Name
@@ -17,11 +17,8 @@
 
 		<div class="form-group">
 			<label for="email">Email address</label>
-			<input type="email" class="form-control" id="email" placeholder="Enter email" readonly formControlName="email" #email>
+			<input type="email" class="form-control" id="email" placeholder="Enter email" readonly formControlName="email" [value]='user?.email'>
 		</div>
-
-
-
 		<button class="btn btn-lg btn-success btn-block" type="submit" [disabled]="!profileForm.valid">Update Profile</button>
 	</form>
 </div>

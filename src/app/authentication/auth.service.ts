@@ -116,12 +116,10 @@ export class AuthService {
         return (this.user) ? true : false;
     }
 
-
-
-    public getProfile(): Observable<User>{
-        if(this.user != null){
+    public getProfile(): Observable<any> {
+        if (this.user != null) {
             return this.af.database.object('/profiles/' + this.user.uid);
         }
-        throw "User Profile could not be loaded";
+        throw 'User Profile could not be loaded';
     }
 }

@@ -123,7 +123,7 @@ export class AuthService {
         throw 'User Profile could not be loaded';
     }
 
-    public updateProfile() {
-        
+    public updateProfile(user: User) {
+        this.af.database.object('/profiles/' + this.user.uid).update({name: user.name});
     }
 }

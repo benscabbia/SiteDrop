@@ -53,8 +53,6 @@ export class ProfileComponent implements OnInit {
     console.log(name);
     this.user.name = name;
     console.log(this.user);
-    //this.authService.updateProfile(this.id, this.name);
-
-
+    this.authService.updateProfile(this.user);
   }
 }

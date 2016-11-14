@@ -48,11 +48,8 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  private onUpdate(name: string){
-
-    console.log(name);
+  public onUpdate(name: string) {
     this.user.name = name;
-    console.log(this.user);
     this.authService.updateProfile(this.user);
   }
 }

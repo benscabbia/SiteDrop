@@ -122,4 +122,8 @@ export class AuthService {
         }
         throw 'User Profile could not be loaded';
     }
+
+    public updateProfile() {
+        
+    }
 }

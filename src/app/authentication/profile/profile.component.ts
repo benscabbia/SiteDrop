@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('PRofile received');
+    console.log('Profile received');
 
     this.authService.getProfile()
     .subscribe(
@@ -46,5 +46,15 @@ export class ProfileComponent implements OnInit {
       email: [this.email, []]
     }
     );
+  }
+
+  private onUpdate(name: string){
+
+    console.log(name);
+    this.user.name = name;
+    console.log(this.user);
+    //this.authService.updateProfile(this.id, this.name);
+
+
   }
 }

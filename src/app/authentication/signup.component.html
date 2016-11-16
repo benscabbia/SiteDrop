@@ -22,22 +22,30 @@
 		</div>
 
 		<div class="form-group">
-			<label for="password">Password</label>
-			<input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" #password>
-		</div>
-		<div *ngIf="!signupForm.controls['password'].valid && signupForm.controls['password'].dirty && signupForm.controls['password'].touched"
-			style='color:red;'>
-			Password Must Be more than 6 characters long
-		</div>
-		<div class="form-group">
-			<label for="confirmPassword">Confirm Password</label>
-			<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword" #confirmPassword>
-		</div>
-		<div *ngIf="!signupForm.controls['confirmPassword'].valid && signupForm.controls['confirmPassword'].dirty && signupForm.controls['confirmPassword'].touched"
-			style='color:red;'>
-			Password does not match!
+			<label for="github">Github Username</label>
+			<input type="github" class="form-control" id="github" placeholder="Enter username" formControlName="github" #github>
+			<small id="githubHelp" class="form-text text-muted">Head over <a href="https://github.com/">github</a> and make your account, alternatively you can add it later.</small>
 		</div>
 
-		<button class="btn btn-lg btn-success btn-block" type="submit" [disabled]="!signupForm.valid">Create Account</button>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" #password>
+			<div *ngIf="!signupForm.controls['password'].valid && signupForm.controls['password'].dirty && signupForm.controls['password'].touched"
+				style='color:red;'>
+				Password Must Be more than 6 characters long
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="confirmPassword">Confirm Password</label>
+			<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword"
+				#confirmPassword>
+			<div *ngIf="!signupForm.controls['confirmPassword'].valid && signupForm.controls['confirmPassword'].dirty && signupForm.controls['confirmPassword'].touched"
+				style='color:red;'>
+				Password does not match!
+			</div>
+		</div>
+
+		<button class="btn btn-lg btn-success btn-block" type="submit" [disabled]="!signupForm.valid ">Create Account</button>
 	</form>
 </div>

@@ -123,7 +123,7 @@ export class AuthService {
         throw 'User Profile could not be loaded';
     }
 
-    public updateProfile(user: User) {
-        this.af.database.object('/profiles/' + this.user.uid).update({name: user.name});
+    public updateProfile(user: User): firebase.Promise<any> {
+        return this.af.database.object('/profiles/' + this.user.uid).update({ name: user.name});
     }
 }

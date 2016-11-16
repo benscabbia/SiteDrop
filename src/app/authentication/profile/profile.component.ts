@@ -50,6 +50,9 @@ export class ProfileComponent implements OnInit {
 
   public onUpdate(name: string) {
     this.user.name = name;
-    this.authService.updateProfile(this.user);
+    this.authService.updateProfile(this.user).then(
+      success => console.log('Successful update'),
+      error => console.log('Error updating')
+    );
   }
 }

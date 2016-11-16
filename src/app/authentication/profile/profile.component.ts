@@ -13,10 +13,12 @@ import 'rxjs/Rx';
 export class ProfileComponent implements OnInit {
 
   profileForm: FormGroup;
+
   id: string;
   name: string;
   email: string;
   user: User;
+  github: string;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
 
@@ -43,13 +45,18 @@ export class ProfileComponent implements OnInit {
         Validators.required,
         Validators.minLength(6)
       ])],
-      email: [this.email, []]
+      email: [this.email, []],
+      github: [this.github, Validators.compose([
+        Validators.required,
+        Validators.minLength(1)
+      ])]
     }
     );
   }
 
-  public onUpdate(name: string) {
+  public onUpdate(name: string, github: string) {
     this.user.name = name;
+    this.user.github = github;
     this.authService.updateProfile(this.user).then(
       success => console.log('Successful update'),
       error => console.log('Error updating')

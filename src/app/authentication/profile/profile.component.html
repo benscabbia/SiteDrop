@@ -1,14 +1,21 @@
 <div class='row'>
 	<h1>Profile</h1>
-	<form [formGroup]="profileForm" class="form-signin" (ngSubmit)="onUpdate(name.value)">
+	<form [formGroup]="profileForm" class="form-signin" (ngSubmit)="onUpdate(name.value, github.value)">
 
 		<div class="form-group">
-
 			<label for="id">Your Unique ID</label>
 			<input type="text" class="form-control" id="id" formControlName="id" readonly [value]='user?.$key'>
+		</div>
 
+		<div class="form-group">
+			<label for="email">Email address</label>
+			<input type="email" class="form-control" id="email" placeholder="Enter email" readonly formControlName="email" [value]='user?.email'>
+			<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+		</div>
+
+		<div class="form-group">
 			<label for="name">Your Name</label>
-			<input type="text" class="form-control" id="name" formControlName="name" [value]='user?.name' #name>
+			<input type="text" class="form-control" id="name" formControlName="name" [value]='user?.name' required #name>
 			<div *ngIf="!profileForm.controls['name'].valid && profileForm.controls['name'].dirty && profileForm.controls['name'].touched"
 				style='color:red;'>
 				Your Name must be 6 characters long
@@ -16,9 +23,14 @@
 		</div>
 
 		<div class="form-group">
-			<label for="email">Email address</label>
-			<input type="email" class="form-control" id="email" placeholder="Enter email" readonly formControlName="email" [value]='user?.email'>
+			<label for="github">Your Github Username</label>
+			<input type="text" class="form-control" id="github" formControlName="github" [value]='user?.github' minlength="1" required #github>			
+			<div *ngIf="!profileForm.controls['github'].valid && profileForm.controls['github'].dirty && profileForm.controls['github'].touched"
+				style='color:red;'>
+				You must enter a username. If you do not have one, please head over to github.com and register an account. 
+			</div>
 		</div>
+
 		<button class="btn btn-lg btn-success btn-block" type="submit" [disabled]="!profileForm.valid">Update Profile</button>
 	</form>
 </div>

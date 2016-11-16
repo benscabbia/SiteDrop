@@ -124,6 +124,6 @@ export class AuthService {
     }
 
     public updateProfile(user: User): firebase.Promise<any> {
-        return this.af.database.object('/profiles/' + this.user.uid).update({ name: user.name});
+        return this.af.database.object('/profiles/' + this.user.uid).update({ name: user.name, github: user.github});
     }
 }

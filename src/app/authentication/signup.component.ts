@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
         Validators.required,
         Validators.pattern('[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?')
       ])],
-      'github':[''],
+      'github': [''],
       'password': ['', Validators.compose([
         Validators.required,
         Validators.minLength(6)

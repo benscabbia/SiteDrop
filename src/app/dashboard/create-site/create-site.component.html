@@ -1,3 +1,24 @@
-<p>
-  create-site works!
-</p>
+<div class='row'>
+	<h1>Create Your Site!</h1>
+	<form [formGroup]="createForm" class="form-signin" (ngSubmit)="onSubmit()">
+
+		<div class="form-group">
+			<label for="name">Site's Name</label>
+			<input type="text" class="form-control" id="name" formControlName="name" #name>
+      <small id="nameHelp" class="form-text text-muted">This is to help you identify it.</small>
+		</div>
+
+		<div class="form-group">
+			<label for="description">Description</label>
+      <textarea class="form-control" id="description" rows="3" placeholder="Description" formControlName="description" #description></textarea>
+      <small id="descriptionHelp" class="form-text text-muted">This will be added to the README.md</small>
+		</div>
+
+		<div class="form-group">
+			<label for="url">URL</label>
+			<input type="text" class="form-control" id="url" formControlName="url" [value]='"https://<username>.github.io/<name>"' readonly #url>
+      <small id="urlHelp" class="form-text text-muted">This is based on your information above. If you have a custom domain, you can overwrite this.</small>
+		</div>
+		<button class="btn btn-lg btn-success btn-block" type="submit" [disabled]="!createForm.valid">Update Profile</button>
+	</form>
+</div>

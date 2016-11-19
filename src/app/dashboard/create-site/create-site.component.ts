@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,10 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateSiteComponent implements OnInit {
 
-  constructor() { }
+  createForm: FormGroup;
+  name: string;
+  description: string;
+  url: string;
 
-  ngOnInit() {
-    
+  constructor(private formBuilder: FormBuilder) { }
+
+  ngOnInit(): void {
+
+    console.log('Create Site Received');    
+    this.initForm();
+  }
+
+  private initForm(): void {
+    this.createForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      url: ['', []],      
+    }
+    );
+  }
+
+  onSubmit() {
+    console.log(this.createForm);    
   }
 
 }

@@ -1,3 +1,4 @@
+import { CreateSiteComponent } from './dashboard/create-site/create-site.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './authentication/auth.guard';
 import { ProfileComponent } from './authentication/profile/profile.component';
@@ -13,6 +14,7 @@ const APP_ROUTES: Routes = [
     { path: 'signup', component: SignupComponent },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'create', component: CreateSiteComponent, canActivate: [AuthGuard] },
 
 ];
 

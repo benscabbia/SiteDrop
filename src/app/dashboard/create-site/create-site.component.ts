@@ -10,6 +10,7 @@ export class CreateSiteComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

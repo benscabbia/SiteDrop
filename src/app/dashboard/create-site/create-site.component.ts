@@ -1,3 +1,5 @@
+import { User } from './../../authentication/user.interface';
+import { AuthService } from './../../authentication/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,11 +14,12 @@ export class CreateSiteComponent implements OnInit {
   name: string;
   description: string;
   url: string;
+  username: string;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
-
+    this.username = 'gudthing';
     console.log('Create Site Received');
     this.initForm();
   }

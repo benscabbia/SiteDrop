@@ -17,7 +17,7 @@ export class CreateSiteComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('Create Site Received');    
+    console.log('Create Site Received');
     this.initForm();
   }
 
@@ -25,13 +25,13 @@ export class CreateSiteComponent implements OnInit {
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      url: ['', []],      
+      url: ['', []]
     }
     );
   }
 
   onSubmit() {
-    console.log(this.createForm);    
+    console.log(this.createForm);
   }
 
 }

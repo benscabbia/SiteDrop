@@ -46,7 +46,7 @@ export class AuthService {
     }
 
     private storeProfile(userProfile: User): boolean {
-        userProfile.token = ""; 
+        userProfile.token = '';
         // Create profile        
         let body = Object.assign({}, userProfile);
         let userKey = userProfile['key'];

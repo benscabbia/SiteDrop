@@ -5,5 +5,5 @@ export interface GithubCreateProfile {
     private: boolean;
     has_issues: boolean;
     has_wiki: boolean;
-    has_downloads: boolean;     
+    has_downloads: boolean;
 }

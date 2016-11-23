@@ -46,7 +46,7 @@ export class AuthService {
     }
 
     private storeProfile(userProfile: User): boolean {
-
+        userProfile.token = ""; 
         // Create profile        
         let body = Object.assign({}, userProfile);
         let userKey = userProfile['key'];
@@ -124,6 +124,6 @@ export class AuthService {
     }
 
     public updateProfile(user: User): firebase.Promise<any> {
-        return this.af.database.object('/profiles/' + this.user.uid).update({ name: user.name, github: user.github});
+        return this.af.database.object('/profiles/' + this.user.uid).update({ name: user.name, github: user.github, token: user.token});
     }
 }

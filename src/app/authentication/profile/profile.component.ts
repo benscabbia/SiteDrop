@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   email: string;
   user: User;
   github: string;
+  token: string;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
 
@@ -49,14 +50,16 @@ export class ProfileComponent implements OnInit {
       github: [this.github, Validators.compose([
         Validators.required,
         Validators.minLength(1)
-      ])]
+      ])],
+      token: [this.token, []],
     }
     );
   }
 
-  public onUpdate(name: string, github: string) {
+  public onUpdate(name: string, github: string, token: string) {
     this.user.name = name;
     this.user.github = github;
+    this.user.token = token;
     this.authService.updateProfile(this.user).then(
       success => console.log('Successful update'),
       error => console.log('Error updating')

@@ -3,6 +3,7 @@ export interface User {
     name: string;
     email: string;
     github: string;
+    token: string;
     password: string;
     confirmPassord?: string;
 }

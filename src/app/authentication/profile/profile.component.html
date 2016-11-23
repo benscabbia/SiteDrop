@@ -1,6 +1,6 @@
 <div class='row'>
 	<h1>Profile</h1>
-	<form [formGroup]="profileForm" class="form-signin" (ngSubmit)="onUpdate(name.value, github.value)">
+	<form [formGroup]="profileForm" class="form-signin" (ngSubmit)="onUpdate(name.value, github.value, token.value)">
 
 		<div class="form-group">
 			<label for="id">Your Unique ID</label>
@@ -29,6 +29,12 @@
 				style='color:red;'>
 				You must enter a username. If you do not have one, please head over to github.com and register an account. 
 			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="token">Github Token</label>
+			<input type="text" class="form-control" id="token" formControlName="token" [value]='user?.token' #token>
+			<small id="tokenHelp" class="form-text text-muted">Click here to find out how to get your token.</small>						
 		</div>
 
 		<button class="btn btn-lg btn-success btn-block" type="submit" [disabled]="!profileForm.valid">Update Profile</button>

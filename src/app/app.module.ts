@@ -1,4 +1,4 @@
-import { GithubService } from './dashboard/github.service';
+import { GithubService } from './github/github.service';
 import { AngularFireModule } from 'angularfire2';
 
 import { ConfigService } from './Shared/config.service';

@@ -1,3 +1,5 @@
+import { GithubService } from './../../github/github.service';
+import { GithubCreateProfile } from './../../github/github-create-profile.interface';
 import { User } from './../../authentication/user.interface';
 import { AuthService } from './../../authentication/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -16,7 +18,7 @@ export class CreateSiteComponent implements OnInit {
   url: string;
   username: string;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private githubService: GithubService) { }
 
   ngOnInit(): void {
     this.username = 'gudthing';
@@ -34,7 +36,36 @@ export class CreateSiteComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.createForm);
+    console.log(this.createForm.value);
+    this.createRepository();
   }
 
+  createRepository() {
+    
+    let user: GithubCreateProfile =
+      {
+        name: this.createForm.value['name'],
+        description: this.createForm.value['description'],
+        homepage: "",
+        private: false,
+        has_issues: false,
+        has_wiki: false,
+        has_downloads: false
+      };      
+      if(this.isValid(user))
+      {                
+        this.githubService.createRepository(user).subscribe(
+          success => "Successfully created Repository...",
+          error => console.log(error)
+        );
+      }
+  }
+
+  private isValid(user: GithubCreateProfile): boolean {
+    if((!user.name || user.name.length === 0 || !user.name.trim())){      
+      console.log("Form is invalid");
+      return false;
+    }
+    return true;
+  }
 }

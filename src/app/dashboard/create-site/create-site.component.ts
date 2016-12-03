@@ -23,6 +23,8 @@ export class CreateSiteComponent implements OnInit {
     this.username = 'gudthing';
     console.log('Create Site Received');
     this.initForm();
+    // set the cache if not already available
+    this.authService.userProfileCached;
   }
 
   private initForm(): void {

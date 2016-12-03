@@ -94,6 +94,7 @@ export class AuthService {
     }
 
     public logout() {
+        this.userProfile = null; 
         this.router.navigate(['/login']);
         this.af.auth.logout();
     }
@@ -121,10 +122,8 @@ export class AuthService {
     public get userProfileCached(): User {
         if(this.userProfile){
             return this.userProfile;
-        }else{
-            this.setUserProfileCache();
-            
-            if(this.user){
+        }else{      
+            if(this.user != null){
                 this.getProfile().subscribe(
                     (profile) => {
                         this.userProfile = <User>profile

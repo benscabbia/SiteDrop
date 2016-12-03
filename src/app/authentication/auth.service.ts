@@ -9,6 +9,7 @@ import { AngularFire, FirebaseObjectObservable, AuthProviders, AuthMethods } fro
 export class AuthService {
 
     private user: any = null;
+    private userProfile: User;
     item: FirebaseObjectObservable<any>;
 
     constructor(private router: Router, private http: Http, private af: AngularFire) {
@@ -77,6 +78,7 @@ export class AuthService {
             .then(
             success => {
                 console.log('Authetnicated maybe');
+                this.setUserProfileCache();                
                 this.router.navigate(['/dashboard']);
             }
             )
@@ -114,6 +116,39 @@ export class AuthService {
 
     public get isLoggedIn() {
         return (this.user) ? true : false;
+    }
+
+    public get userProfileCached(): User {
+        if(this.userProfile){
+            return this.userProfile;
+        }else{
+            this.setUserProfileCache();
+            
+            if(this.user){
+                this.getProfile().subscribe(
+                    (profile) => {
+                        this.userProfile = <User>profile
+                        return this.userProfile;
+                        }                    
+                )
+            }else{
+                throw 'User could not be loaded';
+            }
+        }            
+    }
+    private setUserProfileCache(){
+         if(this.user){
+                this.getProfile().subscribe(
+                    (profile) => {
+                        this.userProfile = <User>profile
+                        console.log('UserProfileCache Set');
+                        console.log(this.userProfile);
+                        return this.userProfile;
+                        }                    
+                )
+            }else{
+                throw 'User could not be loaded';
+            }           
     }
 
     public getProfile(): Observable<any> {

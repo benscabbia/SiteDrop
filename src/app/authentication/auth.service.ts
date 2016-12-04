@@ -78,7 +78,7 @@ export class AuthService {
             .then(
             success => {
                 console.log('Authetnicated maybe');
-                this.setUserProfileCache();                
+                this.setUserProfileCache();
                 this.router.navigate(['/dashboard']);
             }
             )
@@ -94,7 +94,7 @@ export class AuthService {
     }
 
     public logout() {
-        this.userProfile = null; 
+        this.userProfile = null;
         this.router.navigate(['/login']);
         this.af.auth.logout();
     }
@@ -120,34 +120,34 @@ export class AuthService {
     }
 
     public get userProfileCached(): User {
-        if(this.userProfile){
+        if (this.userProfile) {
             return this.userProfile;
-        }else{      
-            if(this.user != null){
+        }else {
+            if (this.user != null) {
                 this.getProfile().subscribe(
                     (profile) => {
-                        this.userProfile = <User>profile
+                        this.userProfile = <User>profile;
                         return this.userProfile;
-                        }                    
-                )
-            }else{
+                        }
+                );
+            }else {
                 throw 'User could not be loaded';
             }
-        }            
+        }
     }
-    private setUserProfileCache(){
-         if(this.user){
+    private setUserProfileCache() {
+         if (this.user) {
                 this.getProfile().subscribe(
                     (profile) => {
-                        this.userProfile = <User>profile
+                        this.userProfile = <User>profile;
                         console.log('UserProfileCache Set');
                         console.log(this.userProfile);
                         return this.userProfile;
-                        }                    
-                )
-            }else{
+                        }
+                );
+            }else {
                 throw 'User could not be loaded';
-            }           
+            }
     }
 
     public getProfile(): Observable<any> {

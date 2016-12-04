@@ -3,5 +3,5 @@ export interface Site {
     siteKey: string;
     siteName: string;
     siteDescription?: string;
-    siteUrl: string;            
+    siteUrl: string;
 }

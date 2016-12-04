@@ -1,3 +1,4 @@
+import { SiteService } from './dashboard/site.service';
 import { GithubService } from './github/github.service';
 import { AngularFireModule } from 'angularfire2';
 
@@ -38,7 +39,7 @@ import { CreateSiteComponent } from './dashboard/create-site/create-site.compone
     routing,
     AngularFireModule.initializeApp(ConfigService.FIREBASE_CONFIG)
   ],
-  providers: [AuthService, AuthGuard, GithubService],
+  providers: [AuthService, AuthGuard, GithubService, SiteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 export interface Site {
-    profileKey: string;
+    userKey: string;
     siteKey: string;
     siteName: string;
     siteDescription?: string;

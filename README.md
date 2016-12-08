@@ -2,7 +2,7 @@
 
 A Single Page Application enabling any user to ‘drop and publish’ their website with a custom URL. 
 
-My vision is to facilitate and reduce the many complexities and costs associated with website hosting and maintained.  
+My vision is to facilitate and reduce the many complexities and costs associated with website hosting and maintanance.  
 
 ---
 
@@ -19,14 +19,14 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## ~~Running unit tests~~ - Not Supported
+## Running unit tests 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+~~Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).~~ - Not currently supported.
 
-## ~~Running end-to-end tests~~ - Not Supported
+## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+~~Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.~~ - Not currently supported.
 
 ## Deploying to Github Pages
 

@@ -2,7 +2,7 @@
 
 A Single Page Application enabling any user to ‘drop and publish’ their website with a custom URL. 
 
-My vision is to facilitate and reduce the many complexities and costs associated with website hosting and maintanance.  
+My vision is to facilitate and reduce the many complexities and costs associated with website hosting and maintenance.  
 
 ---
 

@@ -1,3 +1,5 @@
+import { Site } from './../site.interface';
+import { SiteService } from './../site.service';
 import { GithubService } from './../../github/github.service';
 import { GithubCreateProfile } from './../../github/github-create-profile.interface';
 import { AuthService } from './../../authentication/auth.service';
@@ -17,7 +19,7 @@ export class CreateSiteComponent implements OnInit {
   url: string;
   username: string;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private githubService: GithubService) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private githubService: GithubService, private siteService: SiteService) { }
 
   ngOnInit(): void {
     this.username = this.authService.userProfileCached.github;
@@ -50,8 +52,19 @@ export class CreateSiteComponent implements OnInit {
         has_downloads: false
       };
       if (this.isValid(user)) {
+        let temp: Site = {
+          userKey: '',
+          siteKey: '',
+          siteName: '',
+          siteDescription: '',
+          siteUrl: ''
+        };
+
         this.githubService.createRepository(user).subscribe(
-          success => 'Successfully created Repository...',
+          success => {
+            console.log('Successfully created Repository...');            
+            this.siteService.addSite(temp);
+          },
           error => console.log(error)
         );
       }

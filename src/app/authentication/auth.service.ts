@@ -121,12 +121,16 @@ export class AuthService {
 
     public get userProfileCached(): User {
         if (this.userProfile) {
+            console.log('Accesing user profile which looks like: ');
+            console.log(this.userProfile);
             return this.userProfile;
         }else {
             if (this.user != null) {
                 this.getProfile().subscribe(
                     (profile) => {
                         this.userProfile = <User>profile;
+                        console.log('Rebuilding user profile which looks like: ');
+                        console.log(this.userProfile);
                         return this.userProfile;
                         }
                 );

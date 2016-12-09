@@ -17,12 +17,12 @@ export class CreateSiteComponent implements OnInit {
   name: string;
   description: string;
   url: string;
-  username: string;
+  userCache: any;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private githubService: GithubService, private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.username = this.authService.userProfileCached.github;
+    this.userCache = this.authService.userProfileCached;
     console.log('Create Site Received');
     this.initForm();
   }
@@ -53,16 +53,18 @@ export class CreateSiteComponent implements OnInit {
       };
       if (this.isValid(user)) {
         let temp: Site = {
-          userKey: '',
+          userKey: this.userCache.$key,
           siteKey: '',
-          siteName: '',
-          siteDescription: '',
-          siteUrl: ''
+          siteName: user.name,
+          siteDescription: user.description,
+          siteUrl: user.homepage
         };
+
+        console.log(temp);
 
         this.githubService.createRepository(user).subscribe(
           success => {
-            console.log('Successfully created Repository...');            
+            console.log('Successfully created Repository...');
             this.siteService.addSite(temp);
           },
           error => console.log(error)

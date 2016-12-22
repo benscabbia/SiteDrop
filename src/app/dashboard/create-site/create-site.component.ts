@@ -42,10 +42,12 @@ export class CreateSiteComponent implements OnInit {
   }
 
   createRepository() {
+    let nameTemp = this.createForm.value['name'];
     let user: GithubCreateProfile = {
-        name: this.createForm.value['name'],
+        name: nameTemp,
         description: this.createForm.value['description'],
-        homepage: '',
+        homepage: 'https://' + this.userCache.github + '.github.io/' + nameTemp,
+        // Properties below not stored in database at the moment
         private: false,
         has_issues: false,
         has_wiki: false,

@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs/Rx';
+import { SiteService } from './site.service';
+import { Site } from './site.interface';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+
+  sites: Site[];
+
+  constructor(private siteService: SiteService) { }
 
   ngOnInit() {
+    this.siteService.getSites().subscribe(
+      (sites) => this.sites = sites,
+      (error) => console.log(error)
+    );
   }
 
 }

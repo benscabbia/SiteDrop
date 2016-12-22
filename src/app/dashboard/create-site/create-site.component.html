@@ -4,7 +4,7 @@
 
 		<div class="form-group">
 			<label for="name">Site's Name</label>
-			<input type="text" class="form-control" id="name" formControlName="name" [(ngModel)]="siteName" #name>
+			<input type="text" class="form-control" id="name" formControlName="name" placeholder="Name" [(ngModel)]="siteName" #name>
       <small id="nameHelp" class="form-text text-muted">This will be the name of the repository and your website.</small>
 		</div>
 
@@ -17,7 +17,7 @@
 		<div class="form-group">
 			<label for="url">URL</label>
 			<input type="text" class="form-control" id="url" formControlName="url" [value]='"https://" + username + ".github.io/" + siteName' readonly #url>
-      <small id="urlHelp" class="form-text text-muted">This is based on system information. If you have a custom domain, you can overwrite this.</small>
+      <small id="urlHelp" class="form-text text-muted">This is based on system information. If you have a custom domain, you can overwrite this later.</small>
 		</div>
 		<button class="btn btn-lg btn-success btn-block" type="submit" [disabled]="!createForm.valid">Create & Publish Website</button>
 	</form>

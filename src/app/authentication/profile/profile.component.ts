@@ -27,14 +27,18 @@ export class ProfileComponent implements OnInit {
 
     console.log('Profile received');
 
-    this.authService.getProfile()
-    .subscribe(
-      user => {
-        console.log(user);
-        this.user = user;
-      },
-      error => console.log(error),
-    );
+    if(!this.authService.getProfileFromMemory()){
+      this.authService.getProfile()
+      .subscribe(
+        user => {
+          console.log(user);
+          this.user = user;
+        },
+        error => console.log(error),
+      );
+    }else{
+      this.user = this.authService.getProfileFromMemory();
+    }
 
     this.initForm();
   }

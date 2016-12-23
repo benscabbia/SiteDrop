@@ -11,7 +11,7 @@ export class GithubService {
 
   public createRepository(data: GithubCreateProfile): Observable<any> {
     let url = 'https://api.github.com/user/repos';
-    let userProfile = this.authService.userProfileCached;
+    let userProfile = this.authService.getProfileFromMemory();    
     let token = userProfile.token;
     let githubCreateProfile: GithubCreateProfile = data;
     let body = JSON.stringify(githubCreateProfile);

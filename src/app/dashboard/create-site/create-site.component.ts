@@ -23,7 +23,7 @@ export class CreateSiteComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private githubService: GithubService, private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.userCache = this.authService.userProfileCached;
+    this.userCache = this.authService.getProfileFromMemory();
     this.username = this.userCache.github;
     console.log('Create Site Received');
     this.initForm();

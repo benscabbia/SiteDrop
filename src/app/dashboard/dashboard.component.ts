@@ -1,3 +1,4 @@
+import { AuthService } from './../authentication/auth.service';
 import { Observable } from 'rxjs/Rx';
 import { SiteService } from './site.service';
 import { Site } from './site.interface';
@@ -13,13 +14,24 @@ export class DashboardComponent implements OnInit {
 
   sites: Site[];
 
-  constructor(private siteService: SiteService) { }
+  constructor(private siteService: SiteService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.siteService.getSites().subscribe(
-      (sites) => this.sites = sites,
-      (error) => console.log(error)
-    );
+
+    console.log('INSIDE Dashboard Component -----------------');
+    if(!this.authService.getProfileFromMemory()){
+    this.authService.getProfile().subscribe(
+      profile => console.log('Profile Loaded in dashboard from db'),
+      error => console.log('Error Loading Profile from db')
+    )
+    }else{
+      console.log('Profile already loaded, using memory version');
+    }
+
+    // this.siteService.getSites().subscribe(
+    //   (sites) => this.sites = sites,
+    //   (error) => console.log(error)
+    // );
   }
 
 }

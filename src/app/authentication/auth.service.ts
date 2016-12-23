@@ -75,11 +75,17 @@ export class AuthService {
             }
 
         )
-            .then(
+            .then(                
             success => {
-                console.log('Authetnicated maybe');
-                this.setUserProfileCache();
-                this.router.navigate(['/dashboard']);
+                console.log('Authenticated');
+                this.getProfile().subscribe(
+                    profile => {
+                        console.log(profile);
+                        console.log('Profile Loaded on Signin, redirecting to Dashboard');
+                        this.router.navigate(['/dashboard']);
+                    }, 
+                    error => console.log(error)
+                )
             }
             )
             .catch(function (error) {
@@ -87,7 +93,7 @@ export class AuthService {
                 let errorCode = error;
                 let errorMessage = error.message;
                 // todo
-                console.log('ERROR SIGNING USER IN');
+                console.log('Error on getting profile from db');
                 console.log(errorCode);
                 console.log(errorMessage);
             });
@@ -119,49 +125,29 @@ export class AuthService {
         return (this.user) ? true : false;
     }
 
-    public get userProfileCached(): User {
-        if (this.userProfile) {
-            console.log('Accesing user profile which looks like: ');
-            console.log(this.userProfile);
-            return this.userProfile;
-        }else {
-            if (this.user != null) {
-                this.getProfile().subscribe(
-                    (profile) => {
-                        this.userProfile = <User>profile;
-                        console.log('Rebuilding user profile which looks like: ');
-                        console.log(this.userProfile);
-                        return this.userProfile;
-                        }
-                );
-            }else {
-                throw 'User could not be loaded';
-            }
-        }
-    }
-    private setUserProfileCache() {
-         if (this.user) {
-                this.getProfile().subscribe(
-                    (profile) => {
-                        this.userProfile = <User>profile;
-                        console.log('UserProfileCache Set');
-                        console.log(this.userProfile);
-                        return this.userProfile;
-                        }
-                );
-            }else {
-                throw 'User could not be loaded';
-            }
+    public getProfile(): Observable<User> {        
+            return this.af.database.object('/profiles/' + this.user.uid)
+            .map(                
+                profile => {
+                    this.userProfile = <User>profile;
+                    console.log('Profile Added to Memory');
+                    return profile;
+                },
+                error => {
+                    console.log(error)
+                });
     }
 
-    public getProfile(): Observable<any> {
-        if (this.user != null) {
-            return this.af.database.object('/profiles/' + this.user.uid);
-        }
-        throw 'User Profile could not be loaded';
+    public getProfileFromMemory(): User {
+        return this.userProfile;
     }
 
     public updateProfile(user: User): firebase.Promise<any> {
+        this.userProfile = user;
         return this.af.database.object('/profiles/' + this.user.uid).update({ name: user.name, github: user.github, token: user.token});
+    }
+
+    public get userKey(): string{
+        return this.user.key;
     }
 }

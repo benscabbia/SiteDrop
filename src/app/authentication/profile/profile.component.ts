@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
 
     console.log('Profile received');
 
-    if(!this.authService.getProfileFromMemory()){
+    if (!this.authService.getProfileFromMemory()) {
       this.authService.getProfile()
       .subscribe(
         user => {
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
         },
         error => console.log(error),
       );
-    }else{
+    }else {
       this.user = this.authService.getProfileFromMemory();
     }
 

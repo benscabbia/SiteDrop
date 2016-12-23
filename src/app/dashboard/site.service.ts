@@ -24,16 +24,15 @@ export class SiteService {
     }
 
     public getSites(): Observable<Site[]> {
-        
         console.log('IN GETSITES() method');
-        let pro = this.authService.getProfileFromMemory();
-        let ke = this.authService.userKey;
+        // let pro = this.authService.getProfileFromMemory();
+        // let ke = this.authService.userKey;
         // console.log(this.authService.userKey);
         // console.log(pro);
         // console.log(ke);
-        return this.af.database.list('sites/' + 'S9mLmYSXTJM5Ppek7TkIvmXQUAA2')//this.authService.userProfileCached.key)
+        return this.af.database.list('sites/' + 'S9mLmYSXTJM5Ppek7TkIvmXQUAA2')// this.authService.userProfileCached.key)
             .map(response => <Site[]>response)
             .do(data => console.log('All: ' + JSON.stringify(data)))
-            .catch(error => Observable.throw(error.json().error || 'Server error'));            
+            .catch(error => Observable.throw(error.json().error || 'Server error'));
     }
 }

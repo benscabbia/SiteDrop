@@ -75,7 +75,7 @@ export class AuthService {
             }
 
         )
-            .then(                
+            .then(
             success => {
                 console.log('Authenticated');
                 this.getProfile().subscribe(
@@ -83,9 +83,9 @@ export class AuthService {
                         console.log(profile);
                         console.log('Profile Loaded on Signin, redirecting to Dashboard');
                         this.router.navigate(['/dashboard']);
-                    }, 
+                    },
                     error => console.log(error)
-                )
+                );
             }
             )
             .catch(function (error) {
@@ -125,16 +125,16 @@ export class AuthService {
         return (this.user) ? true : false;
     }
 
-    public getProfile(): Observable<User> {        
+    public getProfile(): Observable<User> {
             return this.af.database.object('/profiles/' + this.user.uid)
-            .map(                
+            .map(
                 profile => {
                     this.userProfile = <User>profile;
                     console.log('Profile Added to Memory');
                     return profile;
                 },
                 error => {
-                    console.log(error)
+                    console.log(error);
                 });
     }
 
